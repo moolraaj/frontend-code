@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
-
+ import './App.css';
+import Navbar from './components/Navbar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SignUp from './components/SignUp';
+import AddProducts from './components/AddProducts';
+import UpdateProducts from './components/UpdateProducts';
+import Products from './components/Products';
+import PrivateComponent from './components/PrivateComponent';
+import LoingUser from './components/LoingUser';
+import Profile from './components/Profile';
+ 
+import NewTaskForm from './components/NewTaskForm';
+import UploadImage from './components/images/UploadImage';
+import SelectBox from './components/SelectBox';
+ 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+ <>
+
+ <BrowserRouter>
+ <Navbar/>
+
+ <Routes>
+  
+  <Route element={<PrivateComponent/>}>
+ <Route path='/' element={<Products/>}/>
+ <Route path='/add-products' element={<AddProducts/>}/>
+ <Route path='/update-products/:id' element={<UpdateProducts/>}/>
+ <Route path='/profile' element={<Profile/>}/>
+ </Route>
+  <Route path='/sign-up' element={<SignUp/>}/>
+  <Route path='/login' element={<LoingUser/>}/>
+ </Routes>
+ </BrowserRouter> 
+
+ 
+ <NewTaskForm/>
+ <UploadImage/>
+ <SelectBox/>
+ 
+
+ 
+ 
+ </>
   );
 }
 
