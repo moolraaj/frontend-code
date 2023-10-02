@@ -4,8 +4,7 @@ import { NavLink } from 'react-router-dom';
  
 function Products() {
   const [products, setProducts] = useState([])
-  const [storeData, setStoreData] = useState('')
-  const [total, setTotal] = useState(0)
+ 
  
   
   
@@ -18,7 +17,7 @@ function Products() {
     let result=await data.json()
     setProducts(result)
     console.log(result)
-    setTotal(result.length)
+  
     
    
 
@@ -70,37 +69,11 @@ const handlerSearch=async (e)=>{
 
 
 
-const filterProducts=async (e)=>{
-  let filterProduct=e.target.value
-  setStoreData(filterProduct)
-  let [field,order]=filterProduct.split('.')
-  let page=1
-  let url=`http://localhost:1500/product/filter-product?sort=${field}&order=${order}&page=${page}`
-  let response=await loadData(url)
-  setProducts(response)
+ 
 
-}
+ 
 
-const paginationProduct=async (page)=>{
-const [field,order]=storeData.split('.')
-let url=`http://localhost:1500/product/filter-product?sort=${field}&order=${order}&page=${page}`
-let response=await loadData(url)
-setProducts(response)
-
-}
-
-const loadData=async (url)=>{
-  try {
-    let data=await fetch(url)
-  let result=await data.json()
-  return result
-  } catch (error) {
-    console.log('data not load')
-    
-  }
-  
-
-}
+ 
 
 
  
@@ -116,18 +89,7 @@ const loadData=async (url)=>{
  <div className='container'>
   <div className='row'>
     <div className='col-md-2 my-4'>
-    <select className="form-select" aria-label="Default select example"   value={storeData} onChange={filterProducts}>
-    <option value="">all products</option>
-  <option value="price.desc">Price hight to low</option>
-  <option value="price.asc">Price low to high </option>
-  <option value="name.desc">Name Z to A</option>
-  <option value="name.asc">Name A to Z</option>
-  
-  
-   
-   
-
-</select>
+ 
     </div>
 
     <div className='col-md-10 my-4'>
@@ -141,10 +103,13 @@ const loadData=async (url)=>{
         <div className="card" >
   
   <div className="card-body">
-    <h6 className="card-title"><b>product name</b>  {items.name}</h6>
+  
+  <img src={items.productImageUrl} className="card-img-top" alt={items.productImageName}/>
+    <h6 className="card-title"><b>product name</b>  {items.productname}</h6>
     <h6 className="card-text"><b>product price</b>  {items.price}</h6>
     <h6 className="card-text"><b>product category</b>   {items.category}</h6>
     <h6 className="card-text"><b>product company</b>  {items.company}</h6>
+    <h6 className="card-text"><b>product export cities</b>  {items.exportproduct}</h6> 
     <div className="d-flex justify-content-between">
     <button type="button" className="btn btn-danger my-3" onClick={()=>deleteProduct(items._id)}>delete</button>
     <button type="button" className="btn btn-primary my-3"><NavLink className='update-link' to={`/update-products/${items._id}`}  >update</NavLink></button>
@@ -163,14 +128,7 @@ const loadData=async (url)=>{
     </div>}
 
     </div>
-    {
-      Array(Math.ceil(total/4))
-      .fill(0)
-      .map((items,index)=>{
-        return  <button type="button" key={index} className="btn btn-danger my-3" onClick={()=>paginationProduct(index+1)}>{index+1}</button>
-
-      })
-    }
+ 
    
     </div>
   </div>

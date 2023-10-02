@@ -34,9 +34,9 @@ function App() {
  </BrowserRouter> 
 
  
- <NewTaskForm/>
+ {/* <NewTaskForm/>
  <UploadImage/>
- <SelectBox/>
+ <SelectBox/> */}
  
 
  
